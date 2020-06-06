@@ -107,6 +107,7 @@ theme_config:
     GitHub: https://github.com/radiat-io
     RSS: /atom.xml
   disqus: radiat-io
+  google_analytics: UA-127825283-2
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
