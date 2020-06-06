@@ -106,6 +106,7 @@ theme_config:
     存檔: /archives
     GitHub: https://github.com/radiat-io
     RSS: /atom.xml
+  disqus: radiat-io
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
