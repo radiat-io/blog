@@ -69,3 +69,8 @@ $$ P = -log_e{\frac{\sum{p_d}}{T - 1}} $$
 | **旺旺中時**       | 2.916988501874460  | F        |
 | **震撼世代傳媒**   | 2.802360091164950  | F        |
 | **自由時報**       | 2.62878183909113   | F        |
+
+## Visualization
+
+<iframe width="100%" height="800px" src="/interactive/2020-president-poll-ranking/d.html"></iframe>
+<iframe width="100%" height="800px" src="/interactive/2020-president-poll-ranking/k.html"></iframe>
