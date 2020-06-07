@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="zh_tw"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="index, follow"><title>重新分析 2020 臺灣總統大選 —— 建立民調評級資料庫 • Radiat.io</title><meta name="description" content="重新分析 2020 臺灣總統大選 —— 建立民調評級資料庫 - Radiat.io"><link rel="icon" href="/favicon.svg"><!-- link(rel='stylesheet', href='https://unpkg.com/nanoreset@3.0.1/nanoreset.min.css')--><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Radiat.io"><script>var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-127825283-2']);
+_gaq.push(['_trackPageview']);
+
+(function () {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script><!-- MathJax --><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+  }
+});
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Radiat.io" type="application/atom+xml">
+</head><body><div class="wrap" id="barba-wrapper"><header><h1 class="branding"><a href="/" title="Radiat.io">Radiat.io</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link no-barba" href="/" target="_self">首頁</a></li><li class="nav-list-item"><a class="nav-list-link no-barba" href="/archives" target="_self">存檔</a></li><li class="nav-list-item"><a class="nav-list-link no-barba" href="https://github.com/radiat-io" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link no-barba" href="/atom.xml" target="_self">RSS</a></li></ul></header><div class="barba-container"><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">重新分析 2020 臺灣總統大選 —— 建立民調評級資料庫</h1><div class="post-info"><a></a>2020-06-06</div><div class="post-content"><h2 id="爲什麼？"><a href="#爲什麼？" class="headerlink" title="爲什麼？"></a>爲什麼？</h2><h2 id="如何驗證民調可靠性？"><a href="#如何驗證民調可靠性？" class="headerlink" title="如何驗證民調可靠性？"></a>如何驗證民調可靠性？</h2><p>我們假設一份民調在一開始做的時候選民的意向是幾乎無規律的，而最後一次民調的意向應該與投票當日幾乎相同。由於在臺灣，有效票數差距在 0.3% 以內，可以提起選舉無效之告訴。我們認爲最終的誤差在 ±0.3% 以內屬於有效預測。</p>
+<p>臺灣的民調機構的每份民調通常數量級在 $10^3$ 左右，在 $\sigma=0.048$ 時，95% CI 下能控制在 ±0.3%。我們以此作爲最嚴格的投票意向。在 $σ=8$ 時，95% CI 下範圍是 ±50%，我們認爲這是最寬鬆的投票意向。由於投票意向總是從寬鬆到嚴格，我們假設 $\sigma$ 應當隨着時間的變化而變小。</p>
+<p>投票意向的收斂過程是混沌的，但由於我們估計的 $σ=8$ 過於寬鬆，我們可以認爲收斂過程應當是先快後慢的。我們假設存在一個 $x$，使得在最初的民調到最終民調封關日前，<br>$$ \sigma_d = \sigma_{d-1} \times x $$</p>
+<p>我們定義一個懲罰值 $p$。民調如果當天落在誤差範圍內，那麼 $p_d = 0$。否則 $p_d$ 是與當天可接受誤差上限差的平方。我們認爲一家民調機構的不可信度 $P$ 爲：</p>
+<p>$$ P = log_e{\frac{\sum{p_d}}{T - 1}} $$</p>
+<p>其中 $T$ 是該民調機構進行民調的次數，爲排除民調次數過少的機構（樣本過少），我們使分母減一，此造成的影響隨着民調次數的增多而降低。$P$ 與評級關係如下表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">P 所在區間</th>
+<th align="center">評級</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">小於機構數量 20%</td>
+<td align="center">S</td>
+</tr>
+<tr>
+<td align="left">小於機構數量 40%</td>
+<td align="center">A</td>
+</tr>
+<tr>
+<td align="left">小於機構數量 60%</td>
+<td align="center">B</td>
+</tr>
+<tr>
+<td align="left">小於機構數量 80%</td>
+<td align="center">C</td>
+</tr>
+<tr>
+<td align="left">大於等於機構數量 80%</td>
+<td align="center">F</td>
+</tr>
+</tbody></table>
+<h2 id="模型驗證"><a href="#模型驗證" class="headerlink" title="模型驗證"></a>模型驗證</h2><p>我們取 2020 年臺灣總統大選的資料來驗證模型本身。2020 年各民調機構給出的民調中，存在幾種形式。一種是正式登記候選人後，以「英德配－國政配－瑜湘配」的最終候選人形式進行調查。另一種是不考慮副總統，以「蔡英文－韓國瑜－宋楚瑜」進行調查。</p>
+<p>在正式登記候選人前，由於候選人的不確定性，各民調機構做了包括柯文哲、郭台銘、呂秀蓮、賴清德、王金平、楊世光的民調。我們取民調的對象是最終登記候選人子集的。即民調不包括蔡英文、韓國瑜、宋楚瑜以外的人時，我們收錄該民調進行驗證。</p>
+<p><a href="https://github.com/radiat-io/poll-ranking" target="_blank" rel="noopener">GitHub Repository</a></p>
+<iframe width="100%" height="600px" src="/interactive/2020-president-poll-ranking"></iframe>
+
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2></div></article></div></main><footer><div class="paginator"></div><div id="disqus_thread"></div><script>var disqus_shortname = 'radiat-io';
+var disqus_identifier = '2020/06/06/2020-president-election-review/';
+var disqus_title = '重新分析 2020 臺灣總統大選 —— 建立民調評級資料庫';
+var disqus_url = 'https://radiat.io/2020/06/06/2020-president-election-review/';
+(function () {
+    var dsq = document.createElement('script'); dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//radiat-io.disqus.com/count.js" async></script><div class="copyright"><p>&copy; 2020 <a href="/">Radiat.io</a></p></div></footer></div></div></body></html>
