@@ -72,8 +72,8 @@ $$ P = -log_e{\frac{\sum{p_d}}{T - 1}} $$
 
 ## Visualization
 
-<iframe width="100%" height="800px" src="/interactive/2020-president-poll-ranking/d.html"></iframe>
-<iframe width="100%" height="800px" src="/interactive/2020-president-poll-ranking/k.html"></iframe>
+<iframe width="800px" height="800px" src="/interactive/2020-president-poll-ranking/d.html"></iframe>
+<iframe width="800px" height="800px" src="/interactive/2020-president-poll-ranking/k.html"></iframe>
 
 ## 歷史評級
 
